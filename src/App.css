@@ -1,0 +1,27 @@
+*{
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+body{
+  margin: 0;
+  background-color: black!important;
+  
+}
+.App{
+ background-image: url('/public/images/container_bg.png');
+}
+
+.loading{
+  animation: loadingIcon 0.5s linear infinite;
+  text-align: "center";
+  height: 2rem;
+}
+
+@keyframes loadingIcon {
+  from{
+    transform: rotate(0);
+  }
+  to{
+    transform: rotate(360deg)
+  }
+}
