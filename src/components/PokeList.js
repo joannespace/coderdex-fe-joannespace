@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePage } from '../features/pokemons/pokemonSlice';
 
 const styles = {
     container: {
@@ -104,28 +106,12 @@ const styles = {
 }
 
 export default function PokeList() {
-    const [pokemons, setPokemons] = useState([])
-    const [page, setPage] = useState(1)
     const [next, setNext] = useState(false)
-
-    useEffect(() => {
-        const url = `${process.env.REACT_APP_BACKEND_URL}/pokemons?page=${page}`
-        console.log(url)
-        try {
-
-            const fetchPokemons = async () => {
-                const res = await fetch(url)
-                const data = await res.json()
-                console.log(data)
-                setPokemons([...pokemons, ...data.data])
-            }
-            fetchPokemons()
-        } catch (err) {
-            console.log(err)
-        }
-    }, [page])
-
-
+    const dispatch = useDispatch()
+    const { pokemons } = useSelector(state => state.pokemons)
+    const handleChangePage = () => {
+        dispatch(changePage())
+    }
 
     return (
         <Container maxWidth="lg" sx={styles.container}>
@@ -133,47 +119,46 @@ export default function PokeList() {
                 <Box sx={styles.textSearch} >Show Advanced Search</Box>
             </Box>
             <Box sx={styles.pokeBox}>
-                {pokemons.length && (<InfiniteScroll
-                    style={{ paddingBottom: "1rem", overflow: "visible!important" }}
-                    dataLength={pokemons.length}
-                    next={() => setPage(page + 1)}
-                    hasMore={next}
-                    loader={<Container maxWidth="md" sx={{ backgroundColor: "white", textAlign: "center", height: "2.5rem" }} > <img className='loading' src="./images/pokeball_gray.png" /></Container>}
-                >
-                    <Grid container maxWidth="md" sx={styles.pokeContainer} spacing={{ xs: 0, md: 3 }} columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}  >
-
-                        {pokemons.map(pokemon => (
-                            <Grid sx={{ display: "flex", justifyContent: "center", paddingLeft: "0!important" }} item xs={12} sm={6} md={4} lg={3} key={pokemon.Name}>
-                                <Card sx={{ width: "12rem", height: "19rem" }} elevation={0}>
-                                    <div style={{ backgroundColor: "#F2F2F2", borderRadius: 5, padding: 30 }}>
-                                        <CardMedia
-                                            component="img"
-                                            image={`${pokemon.url}`}
-                                            alt="Paella dish"
-                                            sx={{ margin: "auto", objectFit: "contain", width: "100%", borderRadius: 5 }}
-                                        />
-                                    </div>
-                                    <CardContent sx={{ paddingBottom: 0 }}>
-                                        <Typography variant='small' color="gray">#{`00${pokemon.index}`.slice(-3)}</Typography>
-                                        <Typography variant="h5" >
-                                            {pokemon.name}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions disableSpacing sx={{ padding: "1rem" }}>
-                                        <Stack direction="row" spacing={1}>
-                                            {pokemon.types.map(type => <PokeType type={type} />)}
-                                        </Stack>
-                                    </CardActions>
-                                </Card>
+                {pokemons.length && (
+                    <InfiniteScroll
+                        style={{ paddingBottom: "1rem", overflow: "visible!important" }}
+                        dataLength={pokemons.length}
+                        next={handleChangePage}
+                        hasMore={next}
+                        loader={<Container maxWidth="md" sx={{ backgroundColor: "white", textAlign: "center", height: "2.5rem" }} > <img className='loading' src="./images/pokeball_gray.png" /></Container>}
+                    >
+                        <Grid container maxWidth="md" sx={styles.pokeContainer} spacing={{ xs: 0, md: 3 }} columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}  >
+                            {pokemons.map(pokemon => (
+                                <Grid sx={{ display: "flex", justifyContent: "center", paddingLeft: "0!important" }} item xs={12} sm={6} md={4} lg={3} key={pokemon.name}>
+                                    <Card sx={{ width: "12rem", height: "19rem" }} elevation={0}>
+                                        <div style={{ backgroundColor: "#F2F2F2", borderRadius: 5, padding: 30 }}>
+                                            <CardMedia
+                                                component="img"
+                                                image={`${pokemon.url}`}
+                                                alt="Paella dish"
+                                                sx={{ margin: "auto", objectFit: "contain", width: "100%", borderRadius: 5 }}
+                                            />
+                                        </div>
+                                        <CardContent sx={{ paddingBottom: 0 }}>
+                                            <Typography variant='small' color="gray">#{`00${pokemon.id}`.slice(-3)}</Typography>
+                                            <Typography variant="h5" >
+                                                {pokemon.name}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions disableSpacing sx={{ padding: "1rem" }}>
+                                            <Stack direction="row" spacing={1}>
+                                                {pokemon.types.map(type => <PokeType type={type} />)}
+                                            </Stack>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            ))}
+                            <Grid sx={{ textAlign: "center" }} item xs={12} sm={12} md={12} >
+                                <Box sx={{ ...styles.foot, bottom: next ? "-5rem" : "-2.5rem" }}></Box>
+                                <Button sx={{ ...styles.loadmore, display: next ? "none" : "inline-block" }} onClick={() => setNext(true)}>Load more Pokémon</Button>
                             </Grid>
-                        ))}
-                        <Grid sx={{ textAlign: "center" }} item xs={12} sm={12} md={12} >
-                            <Box sx={{ ...styles.foot, bottom: next ? "-5rem" : "-2.5rem" }}></Box>
-                            <Button sx={{ ...styles.loadmore, display: next ? "none" : "inline-block" }} onClick={() => setNext(true)}>Load more Pokémon</Button>
-                        </Grid>
-                    </Grid >
-                </InfiniteScroll>)}
-
+                        </Grid >
+                    </InfiniteScroll>)}
             </Box>
         </Container>)
 }

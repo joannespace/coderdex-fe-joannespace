@@ -38,14 +38,7 @@ const styles = {
         width: "100vw",
         position: "relative",
         height: "4rem"
-        // ":before": {
-        //     content: "''",
-        //     position: "absolute",
-        //     width: "0.2rem",
-        //     height: "100%",
-        //     left: 0,
-        //     top: 0,
-        // }
+
     },
     iconMd: {
         textAlign: "center",
@@ -61,7 +54,7 @@ const styles = {
     }
 }
 
-const Header = () => {
+export const MainHeader = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -190,4 +183,4 @@ const Header = () => {
         </div >
     );
 };
-export default Header;
+

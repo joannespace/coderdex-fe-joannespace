@@ -7,7 +7,7 @@ export const PokeType = ({ type }) => {
     return (
         <Chip
             sx={{
-                borderRadius: 1, paddingX: 1, height: 20, fontSize: 12,
+                borderRadius: 1, paddingX: 1, height: 20, fontSize: 12, width: "4.5rem",
                 background: TYPE[type.toLowerCase()], color: TYPE[`${type.toLowerCase()}Text`]
             }}
             size='small'

@@ -32,7 +32,7 @@ const styles = {
 }
 
 
-export const Footer = () => {
+export const MainFooter = () => {
     return (
         <Container maxWidth="xl" sx={styles.container}>
             <Grid container maxWidth="md" sx={{ margin: "auto!important", paddingY: "2rem" }} spacing={{ xs: 4, md: 4 }} columns={{ xs: 10, sm: 12, md: 12 }}  >
