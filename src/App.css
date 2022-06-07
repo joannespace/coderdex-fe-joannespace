@@ -16,6 +16,18 @@ body{
   text-align: "center";
   height: 2rem;
 }
+.create-btn{
+  animation: eggIcon 1s ease-in-out infinite;
+
+  text-align: "center";
+  height: 2rem;
+  color: "white";
+  background-color: "green"
+}
+.create-btn:hover{
+  animation: eggIconHarder 0.15s ease-in-out 10;
+
+}
 
 @keyframes loadingIcon {
   from{
@@ -23,5 +35,34 @@ body{
   }
   to{
     transform: rotate(360deg)
+  }
+}
+
+@keyframes eggIcon {
+  0%{
+    transform: rotate(-10deg);
+  }
+  40%{
+    transform: rotate(15deg)
+  }
+  80%{
+    transform: rotate(-10deg);
+  }
+    100%{
+    transform: rotate(-10deg);
+  }
+}
+@keyframes eggIconHarder {
+  0%{
+    transform: rotate(-30deg);
+  }
+  40%{
+    transform: rotate(35deg)
+  }
+  80%{
+    transform: rotate(-30deg);
+  }
+    100%{
+    transform: rotate(-30deg);
   }
 }
