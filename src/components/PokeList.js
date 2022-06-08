@@ -8,9 +8,9 @@ import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage } from '../features/pokemons/pokemonSlice';
+import { changePage, changeType } from '../features/pokemons/pokemonSlice';
 import { Link } from 'react-router-dom';
-
+import { pokemonTypes } from '../pokemonTypes';
 const styles = {
 	container: {
 		padding: '0!important',
@@ -109,6 +109,7 @@ const styles = {
 };
 
 export default function PokeList() {
+	const [expanded, setExpanded] = useState(false);
 	const [next, setNext] = useState(false);
 	const dispatch = useDispatch();
 	const { pokemons } = useSelector((state) => state.pokemons);
@@ -118,8 +119,17 @@ export default function PokeList() {
 
 	return (
 		<Container maxWidth="lg" sx={styles.container}>
-			<Box sx={styles.search}>
-				<Box sx={styles.textSearch}>Show Advanced Search</Box>
+			<Box className={`filters ${expanded ? 'filters-expanded' : 'filters-collapsed'}`} sx={{ ...styles.search, display: 'flex', justifyContent: 'center' }}>
+				<Grid maxWidth="md" className="filter-types" container spacing={2} sx={{ pb: 5 }}>
+					{pokemonTypes.map((item) => (
+						<Grid item key={item} xs={6} sm={4} md={3} sx={{ display: 'flex', justifyContent: 'center' }}>
+							<PokeType onClick={() => dispatch(changeType(item))} type={item} size="large" border sx={{ cursor: 'pointer' }} />
+						</Grid>
+					))}
+				</Grid>
+				<Box sx={styles.textSearch} onClick={() => setExpanded(!expanded)}>
+					Show Advanced Search
+				</Box>
 			</Box>
 			<Box sx={styles.pokeBox}>
 				{pokemons.length && (

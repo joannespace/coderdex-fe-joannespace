@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPokemons } from '../features/pokemons/pokemonSlice';
 
 export const HomePage = () => {
-    const { search, page } = useSelector((state) => state.pokemons);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getPokemons({ page, search }));
-    }, [page, search]);
-    return (
-        <>
-            <PageTitle title="Pokedex" />
-            <SearchBox />
-            <PokeList />
-        </>
-    );
+	const { search, page, type } = useSelector((state) => state.pokemons);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getPokemons({ page, search, type }));
+	}, [page, search, type]);
+	return (
+		<>
+			<PageTitle title="Pokedex" />
+			<SearchBox />
+			<PokeList />
+		</>
+	);
 };

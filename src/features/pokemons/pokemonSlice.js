@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import apiService from '../../app/apiService';
 import { POKEMONS_PER_PAGE } from '../../app/config';
 
-export const getPokemons = createAsyncThunk('books/getPokemons', async ({ page, search }, { rejectWithValue }) => {
+export const getPokemons = createAsyncThunk('books/getPokemons', async ({ page, search, type }, { rejectWithValue }) => {
 	try {
 		let url = `/pokemons?page=${page}&limit=${POKEMONS_PER_PAGE}`;
 		if (search) url += `&q=${search}`;
+		if (type) url += `&type=${type}`;
 		const response = await apiService.get(url);
 		const timeout = () => {
 			return new Promise((resolve) => {
@@ -64,11 +65,15 @@ export const pokemonSlice = createSlice({
 			previousPokemon: null,
 		},
 		search: '',
+		type: '',
 		page: 1,
 	},
 	reducers: {
 		changePage: (state, action) => {
 			state.page++;
+		},
+		changeType: (state, action) => {
+			state.type = action.payload;
 		},
 	},
 	extraReducers: {
@@ -145,6 +150,6 @@ export const pokemonSlice = createSlice({
 
 // export default pokemonSlice.reducer;
 const { actions, reducer } = pokemonSlice;
-export const { changePage } = actions;
+export const { changePage, changeType } = actions;
 console.log(changePage);
 export default reducer;
