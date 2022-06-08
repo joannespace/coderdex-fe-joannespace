@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { alpha, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { pekemonType } from '../pokemonTypes';
+import { addPokemon } from '../features/pokemons/pokemonSlice';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -30,6 +32,7 @@ const defaultValues = {
 };
 
 export default function PokemonModal({ open, setOpen }) {
+    const navigate = useNavigate()
     const methods = useForm(defaultValues);
     const {
         handleSubmit,
@@ -38,9 +41,9 @@ export default function PokemonModal({ open, setOpen }) {
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
-        console.log(data)
-        const formdata = { data }
-        // dispatch(createPost(data)).then(() => reset());
+        const { name, id, url, type1, type2 } = data
+        dispatch(addPokemon({ name, id, imgUrl: url, types: [type1, type2] }))
+        navigate(`/pokemons/${id}`)
     };
 
     const handleClose = () => setOpen(false);

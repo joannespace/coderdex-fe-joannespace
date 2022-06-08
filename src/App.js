@@ -21,7 +21,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<MainLayout />}>
                             <Route index element={<HomePage />} />
-                            <Route path="/:id" element={<DetailPage />} />
+                            <Route path="/pokemons/:id" element={<DetailPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Route>
                     </Routes>
