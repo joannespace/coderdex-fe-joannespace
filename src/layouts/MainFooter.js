@@ -3,82 +3,78 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import PinterestIcon from '@mui/icons-material/Pinterest';
-import { Box, Container, Grid, Stack, List, ListItem, ListItemIcon, ListItemButton, ListItemText, Typography, Link } from '@mui/material'
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import React from 'react'
-import { styled } from '@mui/system';
+import { Box, Container, Grid, Stack, List, ListItem, ListItemText, Typography, Link } from '@mui/material';
+import React from 'react';
 
 const styles = {
     container: {
-        padding: "0!important",
-        color: "white",
-        backgroundColor: "black",
-        color: "white"
+        color: 'white',
+        backgroundColor: 'black',
+        display: 'flex',
+        justifyContent: 'center',
     },
     seal: {
-        backgroundImage: "url(/images/seal.png)",
-        width: "50%",
-        height: "4rem",
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
+        backgroundImage: 'url(/images/seal.png)',
+        width: '50%',
+        height: '4rem',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
     },
     smallText: {
-        fontSize: "11px!important",
+        fontSize: '11px!important',
     },
     smallTextLeft: {
-        fontSize: "14px"
-    }
-}
-
+        fontSize: '14px',
+    },
+};
 
 export const MainFooter = () => {
     return (
         <Container maxWidth="xl" sx={styles.container}>
-            <Grid container maxWidth="md" sx={{ margin: "auto!important", paddingY: "2rem" }} spacing={{ xs: 4, md: 4 }} columns={{ xs: 10, sm: 12, md: 12 }}  >
-                <Grid item xs={10} sm={12} md={4} >
-                    <Stack >
-                        <Typography variant='h6'>The Pokémon Company</Typography>
+            <Grid container maxWidth="md" sx={{ paddingY: '2rem' }} spacing={{ xs: 4, md: 4 }} columns={{ xs: 10, sm: 12, md: 12 }}>
+                <Grid item xs={10} sm={12} md={4}>
+                    <Stack>
+                        <Typography variant="h6">The Pokémon Company</Typography>
                         <nav aria-label="main mailbox folders">
                             <List>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="What's new" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="Pokémon Parents Guide" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="Customer Service" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="About Our Company" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="Pokémon Careers" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="Select a Country/Region" />
                                 </ListItem>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallTextLeft} primary="Pokémon Press Guide" />
                                 </ListItem>
                             </List>
                         </nav>
                     </Stack>
                 </Grid>
-                <Grid item xs={10} sm={12} md={4} >
+                <Grid item xs={10} sm={12} md={4}>
                     <FacebookIcon />
                     <YouTubeIcon />
                     <TwitterIcon />
                     <InstagramIcon />
                     <PinterestIcon />
                 </Grid>
-                <Grid item xs={10} sm={12} md={4} >
+                <Grid item xs={10} sm={12} md={4}>
                     <Stack direction="row" spacing={1}>
-                        <Link href='#' sx={styles.seal} ></Link>
+                        <Link href="#" sx={styles.seal}></Link>
                         <nav aria-label="main mailbox folders">
                             <List sx={{ padding: 0 }}>
-                                <ListItem disablePadding >
+                                <ListItem disablePadding>
                                     <ListItemText disableTypography sx={styles.smallText} primary="Terms of Use" />
                                 </ListItem>
                                 <ListItem disablePadding>
@@ -97,9 +93,7 @@ export const MainFooter = () => {
                         </nav>
                     </Stack>
                 </Grid>
-
-
             </Grid>
         </Container>
-    )
-}
+    );
+};

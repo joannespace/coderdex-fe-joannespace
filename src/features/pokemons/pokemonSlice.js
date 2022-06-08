@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import apiService from "../../app/apiService";
-import { POKEMONS_PER_PAGE } from "../../app/config";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import apiService from '../../app/apiService';
+import { POKEMONS_PER_PAGE } from '../../app/config';
 
 
 export const getPokemons = createAsyncThunk(
@@ -23,20 +23,17 @@ export const getPokemons = createAsyncThunk(
             return rejectWithValue(error)
         }
     }
-)
+);
 
-export const getPokemonById = createAsyncThunk(
-    'pokemons/getPokemonById',
-    async ({ id }, { rejectWithValue }) => {
-        try {
-            let url = `/pokemons/${id}`;
-            const response = await apiService.get(url);
-            return response.data
-        } catch (error) {
-            return rejectWithValue(error)
-        }
+export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async (id, { rejectWithValue }) => {
+    try {
+        let url = `/pokemons/${id}`;
+        const response = await apiService.get(url);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue(error);
     }
-)
+});
 
 export const addPokemon = createAsyncThunk(
     'pokemons/addPokemon',
@@ -62,7 +59,7 @@ export const editPokemon = createAsyncThunk(
             return rejectWithValue(error)
         }
     }
-)
+);
 
 export const deletePokemon = createAsyncThunk(
     'pokemons/deletePokemon',
@@ -76,18 +73,20 @@ export const deletePokemon = createAsyncThunk(
             return rejectWithValue(error)
         }
     }
-)
-
-
+);
 
 export const pokemonSlice = createSlice({
     name: "pokemons",
     initialState: {
         isLoading: false,
         pokemons: [],
-        pokemon: {},
-        search: "",
-        page: 1
+        pokemon: {
+            pokemon: null,
+            nextPokemon: null,
+            previousPokemon: null,
+        },
+        search: '',
+        page: 1,
     },
     reducers: {
         changePage: (state, action) => {
@@ -104,20 +103,20 @@ export const pokemonSlice = createSlice({
     extraReducers: {
         [getPokemons.pending]: (state, action) => {
             state.loading = true
-            state.errorMessage = ""
+            state.errorMessage = ''
         },
         [getPokemonById.pending]: (state) => {
-            state.loading = true
-            state.errorMessage = ""
+            state.loading = true;
+            state.errorMessage = '';
         },
 
         [addPokemon.pending]: (state) => {
-            state.loading = true
-            state.errorMessage = ""
+            state.loading = true;
+            state.errorMessage = '';
         },
         [deletePokemon.pending]: (state) => {
-            state.loading = true
-            state.errorMessage = ""
+            state.loading = true;
+            state.errorMessage = '';
         },
         [editPokemon.pending]: (state) => {
             state.loading = true
@@ -136,47 +135,46 @@ export const pokemonSlice = createSlice({
             state.loading = false
             state.pokemon = action.payload
         },
-
         [addPokemon.fulfilled]: (state) => {
-            state.loading = false
+            state.loading = false;
         },
         [deletePokemon.fulfilled]: (state) => {
-            state.loading = false
+            state.loading = false;
         },
         [editPokemon.fulfilled]: (state) => {
             state.loading = true
         },
         [getPokemons.rejected]: (state, action) => {
-            state.loading = false
+            state.loading = false;
             if (action.payload) {
                 state.errorMessage = action.payload.message
             } else {
-                state.errorMessage = action.error.message
+                state.errorMessage = action.error.message;
             }
         },
         [getPokemonById.rejected]: (state, action) => {
-            state.loading = false
+            state.loading = false;
             if (action.payload) {
                 state.errorMessage = action.payload.message
             } else {
-                state.errorMessage = action.error.message
+                state.errorMessage = action.error.message;
             }
         },
 
         [addPokemon.rejected]: (state, action) => {
-            state.loading = false
+            state.loading = false;
             if (action.payload) {
-                state.errorMessage = action.payload.message
+                state.errorMessage = action.payload.message;
             } else {
-                state.errorMessage = action.error.message
+                state.errorMessage = action.error.message;
             }
         },
         [deletePokemon.rejected]: (state, action) => {
-            state.loading = false
+            state.loading = false;
             if (action.payload) {
                 state.errorMessage = action.payload.message
             } else {
-                state.errorMessage = action.error.message
+                state.errorMessage = action.error.message;
             }
         },
         [editPokemon.rejected]: (state, action) => {
