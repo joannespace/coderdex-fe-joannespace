@@ -45,7 +45,7 @@ export const DetailPage = () => {
                                 #{('000' + (previousPokemon?.id || '000')).slice(-3)}
                             </Typography>
                             <Typography display={{ xs: 'none', sm: 'block' }} color="#616161" fontSize={24} fontWeight={700}>
-                                {previousPokemon?.name || 'Unknown'}
+                                {previousPokemon?.name ? previousPokemon.name[0].toUpperCase() + previousPokemon.name.slice(1) : 'Unknown'}
                             </Typography>
                         </Box>
                     </Grid>
@@ -63,7 +63,7 @@ export const DetailPage = () => {
                             to={`/${nextPokemon?.id || '1'}`}
                         >
                             <Typography display={{ xs: 'none', sm: 'block' }} color="#616161" fontSize={24} fontWeight={700} marginRight={1}>
-                                {nextPokemon?.name || 'Unknown'}
+                                {nextPokemon?.name ? nextPokemon.name[0].toUpperCase() + nextPokemon.name.slice(1) : 'Unknown'}
                             </Typography>
                             <Typography color="white" fontSize={24} fontWeight={700}>
                                 #{('000' + (nextPokemon?.id || '000')).slice(-3)}
@@ -76,7 +76,7 @@ export const DetailPage = () => {
                 <Box position="absolute" bottom={0} left="50%" sx={{ transform: 'translateX(-50%)' }} textAlign="center" minWidth={'50%'} className="detail-name">
                     <Box bgcolor="white" pt={2}>
                         <Typography sx={{ mr: 2 }} variant="h4" display="inline">
-                            {pokemon?.name || 'Unknown'}
+                            {pokemon?.name ? pokemon.name[0].toUpperCase() + pokemon.name.slice(1) : 'Unknown'}
                         </Typography>
                         <Typography variant="h4" display="inline" color="gray">
                             #{('000' + (pokemon?.id || '000')).slice(-3)}
@@ -118,7 +118,7 @@ export const DetailPage = () => {
                             <Grid container spacing={1}>
                                 {pokemon?.types.map((type) => (
                                     <Grid item key={type} xs={4}>
-                                        <PokeType type={type} size="large" />
+                                        <PokeType type={type} size="large" color="white" />
                                     </Grid>
                                 ))}
                             </Grid>
@@ -126,7 +126,7 @@ export const DetailPage = () => {
                             <Grid container spacing={1}>
                                 {weaknesses.map((type) => (
                                     <Grid item key={type} xs={4}>
-                                        <PokeType type={type} size="large" />
+                                        <PokeType type={type} size="large" color="white" />
                                     </Grid>
                                 ))}
                             </Grid>

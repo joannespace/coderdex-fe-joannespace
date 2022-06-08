@@ -83,7 +83,7 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    left: -59px;
+    left: -60px;
     width: 0;
     border-top: 58px solid transparent;
     border-right: 60px solid white;
@@ -93,7 +93,7 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    right: -59px;
+    right: -60px;
     width: 0;
     border-top: 58px solid transparent;
     border-left: 60px solid white;
