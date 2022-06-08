@@ -39,6 +39,7 @@ export default function PokemonModal({ open, setOpen }) {
 
     const onSubmit = (data) => {
         console.log(data)
+        const formdata = { data }
         // dispatch(createPost(data)).then(() => reset());
     };
 

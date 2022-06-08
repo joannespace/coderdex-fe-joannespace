@@ -3,6 +3,10 @@ import { SearchOutlined } from '@mui/icons-material'
 import { Stack, Container, Grid, TextField, Typography, styled } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { changePage, searchQuery } from '../features/pokemons/pokemonSlice'
+import { FormProvider, FTextField } from './form'
 
 const styles = {
     container: {
@@ -41,8 +45,26 @@ const styles = {
     }
 }
 
+const defaultValues = {
+    search: ""
+};
 
 export const SearchBox = () => {
+
+    const methods = useForm(defaultValues);
+    const {
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+    const dispatch = useDispatch();
+
+    const onSubmit = (data) => {
+        console.log(data)
+        dispatch(searchQuery(data.search))
+        dispatch(changePage(1))
+    };
+
+
     return (
         <Container maxWidth="lg" sx={styles.container}>
             <Grid container maxWidth="md" sx={{ margin: "auto!important", paddingY: "2rem" }}
@@ -50,10 +72,12 @@ export const SearchBox = () => {
                 <Grid item xs={12} sm={12} md={6}>
                     <Stack sx={{ width: { xs: "90%", md: "100%" } }}>
                         <Typography variant='h5'>Name or Number</Typography>
-                        <Box >
-                            <TextField sx={styles.inputText} />
-                            <SearchOutlined sx={styles.icon} />
-                        </Box>
+                        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                            <Box>
+                                <FTextField name="search" sx={styles.inputText} />
+                                <SearchOutlined sx={styles.icon} />
+                            </Box>
+                        </FormProvider>
                         <Typography >Use the Advanced Search to explore Pokémon by type, weakness, Ability, and more!</Typography>
                     </Stack>
                 </Grid>
