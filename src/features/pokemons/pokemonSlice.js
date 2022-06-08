@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import apiService from '../../app/apiService';
 import { POKEMONS_PER_PAGE } from '../../app/config';
 
-export const getPokemons = createAsyncThunk('books/getPokemons', async ({ page, search, type }, { rejectWithValue }) => {
+export const getPokemons = createAsyncThunk('pokemons/getPokemons', async ({ page, search, type }, { rejectWithValue }) => {
 	try {
 		let url = `/pokemons?page=${page}&limit=${POKEMONS_PER_PAGE}`;
-		if (search) url += `&q=${search}`;
+		if (search) url += `&search=${search}`;
 		if (type) url += `&type=${type}`;
 		const response = await apiService.get(url);
 		const timeout = () => {
@@ -33,21 +33,31 @@ export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async 
 	}
 });
 
-export const addPokemon = createAsyncThunk('books/addPokemon', async ({ book }, { rejectWithValue }) => {
+export const addPokemon = createAsyncThunk('pokemons/addPokemon', async ({ name, id, url, types }, { rejectWithValue }) => {
 	try {
-		let url = '/favorites';
-		await apiService.post(url, book);
+		let url = '/pokemons';
+		await apiService.post(url, { name, id, url, types });
 		return;
 	} catch (error) {
 		return rejectWithValue(error);
 	}
 });
 
-export const deletePokemon = createAsyncThunk('books/deletePokemon', async ({ id }, { rejectWithValue, dispatch }) => {
+export const editPokemon = createAsyncThunk('pokemons/editPokemon', async ({ name, id, url, types }, { rejectWithValue }) => {
 	try {
-		let url = `/favorites/${id}`;
+		let url = `/pokemons/${id}`;
+		await apiService.put(url, { name, url, types });
+		return;
+	} catch (error) {
+		return rejectWithValue(error);
+	}
+});
+
+export const deletePokemon = createAsyncThunk('pokemons/deletePokemon', async ({ id }, { rejectWithValue, dispatch }) => {
+	try {
+		let url = `/pokemons/${id}`;
 		await apiService.delete(url);
-		// dispatch(getFavorite())
+		dispatch(getPokemonById());
 		return;
 	} catch (error) {
 		return rejectWithValue(error);
@@ -55,7 +65,7 @@ export const deletePokemon = createAsyncThunk('books/deletePokemon', async ({ id
 });
 
 export const pokemonSlice = createSlice({
-	name: 'pokemon',
+	name: 'pokemons',
 	initialState: {
 		isLoading: false,
 		pokemons: [],
@@ -70,10 +80,17 @@ export const pokemonSlice = createSlice({
 	},
 	reducers: {
 		changePage: (state, action) => {
-			state.page++;
+			if (action.payload) {
+				state.page = action.payload;
+			} else {
+				state.page++;
+			}
 		},
-		changeType: (state, action) => {
+		typeQuery: (state, action) => {
 			state.type = action.payload;
+		},
+		searchQuery: (state, action) => {
+			state.search = action.payload;
 		},
 	},
 	extraReducers: {
@@ -94,12 +111,20 @@ export const pokemonSlice = createSlice({
 			state.loading = true;
 			state.errorMessage = '';
 		},
+		[editPokemon.pending]: (state) => {
+			state.loading = true;
+			state.errorMessage = '';
+		},
 		[getPokemons.fulfilled]: (state, action) => {
 			state.loading = false;
-			state.pokemons = [...state.pokemons, ...action.payload];
+			const { search, pokemons, type } = state;
+			if ((search || type) && state.page === 1) {
+				state.pokemons = action.payload;
+			} else {
+				state.pokemons = [...state.pokemons, ...action.payload];
+			}
 		},
 		[getPokemonById.fulfilled]: (state, action) => {
-			console.log('ppaa', action.payload);
 			state.loading = false;
 			state.pokemon = action.payload;
 		},
@@ -109,10 +134,12 @@ export const pokemonSlice = createSlice({
 		[deletePokemon.fulfilled]: (state) => {
 			state.loading = false;
 		},
+		[editPokemon.fulfilled]: (state) => {
+			state.loading = true;
+		},
 		[getPokemons.rejected]: (state, action) => {
 			state.loading = false;
 			if (action.payload) {
-				console.log('rejected', action.payload);
 				state.errorMessage = action.payload.message;
 			} else {
 				state.errorMessage = action.error.message;
@@ -121,7 +148,6 @@ export const pokemonSlice = createSlice({
 		[getPokemonById.rejected]: (state, action) => {
 			state.loading = false;
 			if (action.payload) {
-				console.log('rejected', action.payload);
 				state.errorMessage = action.payload.message;
 			} else {
 				state.errorMessage = action.error.message;
@@ -139,7 +165,14 @@ export const pokemonSlice = createSlice({
 		[deletePokemon.rejected]: (state, action) => {
 			state.loading = false;
 			if (action.payload) {
-				console.log('rejected', action.payload);
+				state.errorMessage = action.payload.message;
+			} else {
+				state.errorMessage = action.error.message;
+			}
+		},
+		[editPokemon.rejected]: (state, action) => {
+			state.loading = false;
+			if (action.payload) {
 				state.errorMessage = action.payload.message;
 			} else {
 				state.errorMessage = action.error.message;
@@ -148,8 +181,6 @@ export const pokemonSlice = createSlice({
 	},
 });
 
-// export default pokemonSlice.reducer;
 const { actions, reducer } = pokemonSlice;
-export const { changePage, changeType } = actions;
-console.log(changePage);
+export const { changePage, searchQuery, typeQuery } = actions;
 export default reducer;

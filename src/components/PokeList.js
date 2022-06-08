@@ -8,7 +8,7 @@ import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage, changeType } from '../features/pokemons/pokemonSlice';
+import { changePage, typeQuery } from '../features/pokemons/pokemonSlice';
 import { Link } from 'react-router-dom';
 import { pokemonTypes } from '../pokemonTypes';
 const styles = {
@@ -123,7 +123,16 @@ export default function PokeList() {
 				<Grid maxWidth="md" className="filter-types" container spacing={2} sx={{ pb: 5 }}>
 					{pokemonTypes.map((item) => (
 						<Grid item key={item} xs={6} sm={4} md={3} sx={{ display: 'flex', justifyContent: 'center' }}>
-							<PokeType onClick={() => dispatch(changeType(item))} type={item} size="large" border sx={{ cursor: 'pointer' }} />
+							<PokeType
+								onClick={() => {
+									dispatch(changePage(1));
+									dispatch(typeQuery(item));
+								}}
+								type={item}
+								size="large"
+								border
+								sx={{ cursor: 'pointer' }}
+							/>
 						</Grid>
 					))}
 				</Grid>
