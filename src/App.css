@@ -96,3 +96,22 @@ body {
 	border-top: 58px solid transparent;
 	border-left: 60px solid white;
 }
+
+.filters {
+	transition-duration: 0.5s;
+	max-height: 64px;
+}
+.filters-expanded {
+	transition-duration: 0.5s;
+	opacity: 1;
+	max-height: 2400px;
+}
+
+.filters .filter-types {
+	opacity: 0;
+	transition-duration: 0.5s;
+}
+.filters-expanded .filter-types {
+	opacity: 1;
+	transition-duration: 0.5s;
+}

@@ -1,12 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import { Container } from '@mui/system';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Footer } from './layouts/MainFooter';
-import Header from './layouts/MainHeader';
-import { PageTitle } from './components/PageTitle';
-import PokeList from './components/PokeList';
-import { SearchBox } from './components/SearchBox';
 import { MThemeProvider } from './themeContext/MThemeProvider';
 import MainLayout from './layouts/MainLayout';
 import { HomePage } from './pages/HomePage';

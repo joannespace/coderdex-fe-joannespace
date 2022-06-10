@@ -38,7 +38,7 @@ export const DetailPage = () => {
 							alignItems="center"
 							sx={{ textDecoration: 'none' }}
 							component={Link}
-							to={`/${previousPokemon?.id || '1'}`}
+							to={`/pokemons/${previousPokemon?.id || '1'}`}
 						>
 							<ArrowBackIosNewIcon sx={{ color: '#616161', backgroundColor: 'white', borderRadius: '50%', padding: '5px', mr: 2 }} />
 							<Typography variant="span" color="white" fontSize={24} fontWeight={700} marginRight={1}>
@@ -60,7 +60,7 @@ export const DetailPage = () => {
 							justifyContent="flex-end"
 							sx={{ textDecoration: 'none' }}
 							component={Link}
-							to={`/${nextPokemon?.id || '1'}`}
+							to={`/pokemons/${nextPokemon?.id || '1'}`}
 						>
 							<Typography display={{ xs: 'none', sm: 'block' }} color="#616161" fontSize={24} fontWeight={700} marginRight={1}>
 								{nextPokemon?.name ? nextPokemon.name[0].toUpperCase() + nextPokemon.name.slice(1) : 'Unknown'}
