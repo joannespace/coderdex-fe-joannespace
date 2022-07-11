@@ -3,7 +3,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import PinterestIcon from '@mui/icons-material/Pinterest';
-import { Box, Container, Grid, Stack, List, ListItem, ListItemText, Typography, Link } from '@mui/material';
+import { Container, Grid, Stack, List, ListItem, ListItemText, Typography, Link } from '@mui/material';
 import React from 'react';
 
 const styles = {
@@ -30,7 +30,7 @@ const styles = {
 
 export const MainFooter = () => {
     return (
-        <Container maxWidth="xl" sx={styles.container}>
+        <Container maxWidth="100%" sx={styles.container}>
             <Grid container maxWidth="md" sx={{ paddingY: '2rem' }} spacing={{ xs: 4, md: 4 }} columns={{ xs: 10, sm: 12, md: 12 }}>
                 <Grid item xs={10} sm={12} md={4}>
                     <Stack>

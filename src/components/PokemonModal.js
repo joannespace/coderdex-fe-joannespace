@@ -1,12 +1,12 @@
 import Box from '@mui/material/Box';
-import { FMultiCheckbox, FormProvider, FSelect, FTextField } from './form';
+import { FormProvider, FTextField } from './form';
 import Modal from '@mui/material/Modal';
-import { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { alpha, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { pekemonType } from '../pokemonTypes';
+
 import { addPokemon } from '../features/pokemons/pokemonSlice';
 import { useNavigate } from 'react-router-dom';
 

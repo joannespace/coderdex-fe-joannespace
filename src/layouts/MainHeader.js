@@ -9,7 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
@@ -57,29 +56,23 @@ const styles = {
 
 export const MainHeader = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
     };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
+
 
     return (
         <div>
             <AppBar
                 position="fixed"
                 sx={{
-                    backgroundColor: 'white',
                     backgroundColor: { xs: '#000', md: '#fff' },
                     borderRadius: 0,
                 }}

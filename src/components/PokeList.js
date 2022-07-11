@@ -3,7 +3,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
@@ -65,7 +65,6 @@ const styles = {
         paddingTop: '2rem',
         backgroundColor: 'white',
         position: 'relative',
-        backgroundColor: 'white',
     },
     foot: {
         position: 'absolute',
@@ -86,7 +85,6 @@ const styles = {
             bottom: 0,
             top: 0,
             left: '-0.5rem',
-            border: 'none',
         },
         '&:before': {
             position: 'absolute',
@@ -96,12 +94,10 @@ const styles = {
             top: 0,
             bottom: 0,
             right: '-0.5rem',
-            border: 'none',
         },
     },
     loadmore: {
         height: '2rem',
-        backgroundColor: 'blue',
         margin: '1rem auto',
         backgroundColor: '#30a7d7',
         color: '#fff',
@@ -109,6 +105,12 @@ const styles = {
             backgroundColor: '#1b82b1',
         },
     },
+    loading: {
+        backgroundColor: 'white',
+        textAlign: 'center',
+        height: '6rem',
+        transform: "translateY(1rem)"
+    }
 };
 
 export default function PokeList() {
@@ -144,7 +146,11 @@ export default function PokeList() {
                 </Box>
             </Box>
             <Box sx={styles.pokeBox}>
-                {pokemons.length > 0 && (
+
+                {!pokemons.length ?
+                    <Container maxWidth="md" sx={styles.loading}>
+                        <img alt="loading" className="loading" src="./images/pokeball_gray.png" style={{ height: "4rem" }} />
+                    </Container> :
                     <InfiniteScroll
                         style={{ paddingBottom: '1rem', overflow: 'visible!important' }}
                         dataLength={pokemons.length}
@@ -152,8 +158,7 @@ export default function PokeList() {
                         hasMore={next}
                         loader={
                             <Container maxWidth="md" sx={{ backgroundColor: 'white', textAlign: 'center', height: '2.5rem' }}>
-                                {' '}
-                                <img className="loading" src="./images/pokeball_gray.png" />
+                                <img alt="loading" className="loading" src="./images/pokeball_gray.png" />
                             </Container>
                         }
                     >
@@ -188,7 +193,7 @@ export default function PokeList() {
                             </Grid>
                         </Grid>
                     </InfiniteScroll>
-                )}
+                }
             </Box>
         </Container>
     );

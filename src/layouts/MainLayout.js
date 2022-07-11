@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Box, Button, Fab, Stack } from "@mui/material";
+import { Box, Fab, Stack } from "@mui/material";
 import { MainFooter } from "./MainFooter";
 import { MainHeader } from "./MainHeader";
 import PokemonModal from "../components/PokemonModal";

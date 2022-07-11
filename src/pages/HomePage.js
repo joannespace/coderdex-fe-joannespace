@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PageTitle } from '../components/PageTitle';
 import PokeList from '../components/PokeList';
 import { SearchBox } from '../components/SearchBox';
@@ -10,7 +10,7 @@ export const HomePage = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getPokemons({ page, search, type }));
-	}, [page, search, type]);
+	}, [page, search, type, dispatch]);
 	return (
 		<>
 			<PageTitle title="Pokedex" />

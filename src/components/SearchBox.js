@@ -1,6 +1,6 @@
 
 import { SearchOutlined } from '@mui/icons-material'
-import { Stack, Container, Grid, TextField, Typography, styled } from '@mui/material'
+import { Stack, Container, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -59,7 +59,6 @@ export const SearchBox = () => {
     const methods = useForm(defaultValues);
     const {
         handleSubmit,
-        formState: { isSubmitting },
     } = methods;
     const dispatch = useDispatch();
 

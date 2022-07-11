@@ -21,7 +21,7 @@ export const DetailPage = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getPokemonById(id));
-	}, [id]);
+	}, [id, dispatch]);
 
 	const weaknesses = calculateWeaknesses(pokemon?.types);
 	return (
