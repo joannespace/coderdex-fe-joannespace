@@ -1,7 +1,7 @@
 import { Chip } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getPokemons, typeQuery } from "../features/pokemons/pokemonSlice";
+import { typeQuery } from "../features/pokemons/pokemonSlice";
 import { TYPE } from "../themeContext/MThemeProvider";
 
 export const PokeType = ({
